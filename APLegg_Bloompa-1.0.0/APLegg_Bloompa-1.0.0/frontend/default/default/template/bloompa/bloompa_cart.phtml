@@ -1,0 +1,51 @@
+<?php 
+$readConnection = Mage::getSingleton('core/resource')->getConnection('core_read');
+$strsql = "SELECT * FROM `salesrule` WHERE `name`='Bloompa-Facebook' OR `name`='Bloompa-Twitter'";
+$bloompa = $readConnection->fetchAll($strsql);
+if(count($bloompa)>0):
+	if(!Mage::getSingleton('checkout/session')->getQuote()->getCouponCode()):
+		$strsql = "SELECT token FROM `bloompa` WHERE `id_token`=1 LIMIT 0,1";
+		$token = $readConnection->fetchAll($strsql);
+		$token = $token[0]['token'];
+		if($token!=''&&$token!='novo'):
+?>
+<script language="javascript" type="text/javascript">
+	var bcw_products = [
+
+	 // INÍCIO DO LOOP DE PRODUTOS	 
+	 <?php foreach( Mage::getSingleton('checkout/session')->getQuote()->getItemsCollection() as $item ) : ?>
+	 {	
+	   prod_page_url: '<?=Mage::getBaseUrl().($item->_data['product']->_data['url_path']);?>', // REQUIRED VARIABLE
+	   prod_img_url: '<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'catalog/product'.$item->_data['product']->_data['thumbnail'];?>', // REQUIRED VARIABLE
+	   prod_title: '<?=$item->_data['name'];?>', // REQUIRED VARIABLE 
+	   prod_price: '<?=$item->_data['price'];?>' // REQUIRED VARIABLE 	
+	 },
+	 <?php endforeach; ?>
+	];
+</script>
+<div id="bloompa-cart-widget"></div>
+<script language="javascript" type="text/javascript" src="https://www.bloompa.com.br/js/cart.widget-load.js" rel="sbloompa-cart-widget"></script>
+<script language="javascript" type="text/javascript">
+bcw.init(
+  {
+    token: "<?=$token;?>",
+    cart_url:"<?=Mage::getBaseUrl().'bloompcommerce';?>",
+    store_logo: '<?=$this->getSkinUrl('images/logotipo.png');?>',
+		products_in_cart: bcw_products,
+		cart_currency: 'BRL',
+		cart_amount: '<?php echo Mage::getSingleton('checkout/session')->getQuote()->getSubtotal(); ?>'
+  }
+);
+</script>
+	<?php endif;?>
+<?php else: ?>
+<script language="javascript" type="text/javascript">
+<?php foreach($bloompa as $token): ?>
+	//$token
+<?php endforeach; ?>
+	document.getElementsByTagName("body").item(0).innerHTML = document.getElementsByTagName("body").item(0).innerHTML.replace(/<?php echo md5("Bloompa-Facebook"); ?>/gi, "Bloompa");
+	document.getElementsByTagName("body").item(0).innerHTML = document.getElementsByTagName("body").item(0).innerHTML.replace(/<?php echo md5("Bloompa-Twitter"); ?>/gi, "Bloompa");
+</script>
+<?php endif; 
+endif;
+?>

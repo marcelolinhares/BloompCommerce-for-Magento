@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<layout>
+    <bloompa_adminhtml_bloompa_index>
+        <update handle="bloompa_bloompa_index"/>
+        <reference name="content">
+            <block type="adminhtml/template" name="bloompa" template="bloompa/bloompa.phtml"/>
+        </reference>
+    </bloompa_adminhtml_bloompa_index>
+</layout>

@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Bloompa_Bloompa>
+            <version>1.0.0</version>
+        </Bloompa_Bloompa>
+    </modules>
+    
+    <global>
+		<rewrite> 
+			<bloompa> 
+				<from><![CDATA[#^/bloompcommerce#]]></from> 
+				<to>/bloompa/bloompa_bloompa</to> 
+			</bloompa> 
+		</rewrite> 
+        <models>
+            <bloompa>
+                <class>Bloompa_Bloompa_Model</class>
+                <resourceModel>bloompa_mysql4</resourceModel>
+            </bloompa>
+            <bloompa_mysql4>
+                <class>Bloompa_Bloompa_Model_Mysql4</class>
+            </bloompa_mysql4>
+        </models>
+        <blocks>
+            <bloompa>
+                <class>Bloompa_Bloompa_Block</class>
+            </bloompa>
+        </blocks>
+        <helpers>
+            <bloompa>
+                <class>Bloompa_Bloompa_Helper</class>
+            </bloompa>  
+        </helpers>
+    </global>
+	
+    <frontend> 
+        <routers> 
+            <bloompa> 
+                <use>standard</use> 
+                <args> 
+                    <module>Bloompa_Bloompa</module> 
+                    <frontName>bloompa</frontName> 
+                </args> 
+            </bloompa> 
+        </routers> 
+        <layout>
+            <updates>
+                <bloompa>
+                    <file>bloompa.xml</file>
+                </bloompa>
+            </updates>
+        </layout>
+    </frontend> 
+	
+    <admin>
+        <routers>
+            <bloompa>
+                <use>admin</use>
+                <args>
+                    <module>Bloompa_Bloompa</module>
+                    <frontName>bloompa</frontName>
+                </args>
+            </bloompa>
+        </routers>
+    </admin>
+    
+    <adminhtml>
+        <translate>
+            <modules>
+                <bloompa_adminhtml>
+                    <files>
+                        <bloompa>Bloompa_Bloompa.csv</bloompa>
+                    </files>
+                </bloompa_adminhtml>
+            </modules>
+        </translate>
+        
+        <menu>
+            <bloompa>
+				<title>Bloompa</title>
+                <children>
+                    <bloompa_adminform translate="title" module="bloompa">
+                        <title>Painel do Bloompa</title>
+                        <action>bloompa/adminhtml_bloompa</action>
+                    </bloompa_adminform>
+                </children>
+            </bloompa>
+        </menu>
+        
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <catalog>
+                            <children>
+                                <bloompa_adminform>
+                                    <title>Bloompa</title>
+                                </bloompa_adminform>
+                            </children>
+                        </catalog>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        
+        <layout>
+            <updates>
+                <bloompa>
+                    <file>bloompa.xml</file>
+                </bloompa>
+            </updates>
+        </layout>
+    </adminhtml>
+</config>
