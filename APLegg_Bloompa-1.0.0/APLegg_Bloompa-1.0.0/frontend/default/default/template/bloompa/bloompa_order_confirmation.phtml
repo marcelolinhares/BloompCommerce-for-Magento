@@ -1,0 +1,27 @@
+<?php 
+$order_id = Mage::getSingleton('checkout/session')->getQuoteId();
+
+$readConnection = Mage::getSingleton('core/resource')->getConnection('core_read');
+$strsql = "SELECT token FROM `bloompa` WHERE `id_token`=1 LIMIT 0,1";
+$token = $readConnection->fetchAll($strsql);
+$token = $token[0]['token'];
+if($token!=''&&$token!='novo'):
+?>
+<div id="bloompa-cart-widget"></div>
+<script type="text/javascript">
+
+function loadBCW(){
+  bcw.conversion({
+    token: '<?php echo $token;?>',
+    order_id: <?php echo $order_id; ?>
+  });
+}
+
+(function() {
+  var bc = document.createElement('script'); bc.type = 'text/javascript'; bc.async = true;
+  bc.src = ('https:' == document.location.protocol ? 'https://www' : 'http://www') + '.bloompa.com.br/js/cart.widget-load.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(bc, s);
+  bc.onload = loadBCW;
+})();
+</script>
+<?php endif; ?>
