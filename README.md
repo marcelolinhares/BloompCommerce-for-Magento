@@ -20,6 +20,7 @@ Acesse nosso site(<http://www.bloompa.com.br>) e saiba mais sobre nossas soluç�
 ## Sobre o módulo
 Este módulo foi forkeado do módulo enviado pelo time da própria Bloompa, porém ele precisou de algumas mudanças para funcionar, e ainda precisa de MUITAS mudanças para ficar adequado ao padrão da plataforma Magento.
 
+
 ## Compatibilidade
 Está funcionando de forma estável em: [maisfloresbh.com.br](http://www.maisfloresbh.com.br), que utiliza a versão 1.6, não testei em outras versões.
 
@@ -34,3 +35,8 @@ Está funcionando de forma estável em: [maisfloresbh.com.br](http://www.maisflo
 ## Features não homologados
 
 ## TODO
+- Tirar SQL das views
+- Retirar a tabela bloompa (ela pode ficar persistido na core_config_data)
+- personalizar o label do cupom dinamicamente
+- limpar o código que não está funcionando 
+- homologar a visualização do widget na página do produto
