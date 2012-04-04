@@ -1,0 +1,21 @@
+<div class="content-header">
+    <table cellspacing="0" class="grid-header">
+        <tr>
+            <td><h3>Painel de configurações do Bloompa</h3></td>
+            <!--<td class="a-right">
+                <button onclick="editForm.submit()" class="scalable save" type="button"><span>Enviar Arquivo</span></button>
+            </td>-->
+        </tr>
+    </table>
+</div>
+<?php
+$readConnection = Mage::getSingleton('core/resource')->getConnection('core_read');
+$strsql = "SELECT token FROM `bloompa` WHERE `id_token`=1 LIMIT 0,1";
+$token = $readConnection->fetchAll($strsql);
+$token = $token[0]['token'];
+?>
+<iframe name="bloompcommerce_magento" align="center" frameborder="0" width="99%" height="100" src="http://www.bloompa.com.br/bc-magento-admin?token=<?php echo $token; ?>"></iframe>
+
+<script type="text/javascript">
+    var editForm = new varienForm('edit_form');
+</script>

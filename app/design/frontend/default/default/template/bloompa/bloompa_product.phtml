@@ -1,0 +1,31 @@
+<?php 
+$item = Mage::registry('product');
+
+$readConnection = Mage::getSingleton('core/resource')->getConnection('core_read');
+$strsql = "SELECT * FROM `salesrule` WHERE `name`='Bloompa-Facebook' OR `name`='Bloompa-Twitter'";
+$bloompa = $readConnection->fetchAll($strsql);
+if(count($bloompa)>0):
+	$strsql = "SELECT token FROM `bloompa` WHERE `id_token`=1 LIMIT 0,1";
+	$token = $readConnection->fetchAll($strsql);
+	$token = $token[0]['token'];
+	if($token!=''&&$token!='novo'):
+?>
+<div id="bloompa-product-widget"></div>
+<script language="javascript" type="text/javascript" src="https://www.bloompa.com.br/js/product.widget-load.js" rel="sbloompa-cart-widget"></script>
+<script language="javascript" type="text/javascript">
+	var bcw_product = [
+
+	 // INÍCIO DO LOOP DE PRODUTOS	 
+	 {	
+	   prod_page_url: '<?=Mage::getBaseUrl().($item->_data['url_path']);?>', // REQUIRED VARIABLE
+	   prod_img_url: '<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'catalog/product'.$item->_data['thumbnail'];?>', // REQUIRED VARIABLE
+	   prod_title: '<?=$item->_data['name'];?>', // REQUIRED VARIABLE 
+	   prod_currency: 'BRL',
+	   prod_price: '<?=$item->_data['price'];?>' // REQUIRED VARIABLE 	
+	 }
+	];
+	bcw.init({token: "<?=$token;?>", product: bcw_product});
+</script>
+<?php endif;
+endif;
+?>

@@ -1,0 +1,77 @@
+<?php 
+$readConnection = Mage::getSingleton('core/resource')->getConnection('core_read');
+$writeConnection = Mage::getSingleton('core/resource')->getConnection('core_write');
+
+$strsql = "SELECT * FROM `salesrule` WHERE `name`='Bloompa-Facebook' OR `name`='Bloompa-Twitter'";
+$bloompa = $readConnection->fetchAll($strsql);
+if(count($bloompa)==0):
+	$strsql = "INSERT INTO `salesrule` (`name`, `description`, `from_date`, `to_date`, `uses_per_customer`, `customer_group_ids`, `is_active`, `conditions_serialized`, `actions_serialized`, `stop_rules_processing`, `is_advanced`, `product_ids`, `sort_order`, `simple_action`, `discount_amount`, `discount_qty`, `discount_step`, `simple_free_shipping`, `apply_to_shipping`, `times_used`, `is_rss`, `website_ids`, `coupon_type`) VALUES ('Bloompa-Facebook', 'Cupom de desconto fornecido pelo compartilhamento do site nas redes sociais.', '".date('Y-m-d')."', NULL, 0, '0,1,2,3,4', 1, 'a:6:{s:4:\"type\";s:32:\"salesrule/rule_condition_combine\";s:9:\"attribute\";N;s:8:\"operator\";N;s:5:\"value\";s:1:\"1\";s:18:\"is_value_processed\";N;s:10:\"aggregator\";s:3:\"all\";}', 'a:6:{s:4:\"type\";s:40:\"salesrule/rule_condition_product_combine\";s:9:\"attribute\";N;s:8:\"operator\";N;s:5:\"value\";s:1:\"1\";s:18:\"is_value_processed\";N;s:10:\"aggregator\";s:3:\"all\";}', 0, 1, '', 0, 'by_percent', '5', NULL, 0, 0, 0, 0, 1, '1', 2)";
+	$writeConnection->query($strsql);
+	$strsql = "SELECT * FROM `salesrule` WHERE `name`='Bloompa-Facebook'";
+	$bloompa = $readConnection->fetchAll($strsql);
+	$strsql = "INSERT INTO `salesrule_coupon` (`rule_id`, `code`, `usage_limit`, `usage_per_customer`, `times_used`, `expiration_date`, `is_primary`) VALUES (".$bloompa[0]['rule_id'].", '".md5("Bloompa-Facebook")."', NULL, NULL, 0, NULL, 1)";
+	$writeConnection->query($strsql);
+
+	
+	$strsql = "INSERT INTO `salesrule` (`name`, `description`, `from_date`, `to_date`, `uses_per_customer`, `customer_group_ids`, `is_active`, `conditions_serialized`, `actions_serialized`, `stop_rules_processing`, `is_advanced`, `product_ids`, `sort_order`, `simple_action`, `discount_amount`, `discount_qty`, `discount_step`, `simple_free_shipping`, `apply_to_shipping`, `times_used`, `is_rss`, `website_ids`, `coupon_type`) VALUES ('Bloompa-Twitter', 'Cupom de desconto fornecido pelo compartilhamento do site nas redes sociais.', '".date('Y-m-d')."', NULL, 0, '0,1,2,3,4', 1, 'a:6:{s:4:\"type\";s:32:\"salesrule/rule_condition_combine\";s:9:\"attribute\";N;s:8:\"operator\";N;s:5:\"value\";s:1:\"1\";s:18:\"is_value_processed\";N;s:10:\"aggregator\";s:3:\"all\";}', 'a:6:{s:4:\"type\";s:40:\"salesrule/rule_condition_product_combine\";s:9:\"attribute\";N;s:8:\"operator\";N;s:5:\"value\";s:1:\"1\";s:18:\"is_value_processed\";N;s:10:\"aggregator\";s:3:\"all\";}', 0, 1, '', 0, 'by_percent', '5', NULL, 0, 0, 0, 0, 1, '1', 2)";
+	$writeConnection->query($strsql);
+	$strsql = "SELECT * FROM `salesrule` WHERE `name`='Bloompa-Twitter'";
+	$bloompa = $readConnection->fetchAll($strsql);
+	$strsql = "INSERT INTO `salesrule_coupon` (`rule_id`, `code`, `usage_limit`, `usage_per_customer`, `times_used`, `expiration_date`, `is_primary`) VALUES (".$bloompa[0]['rule_id'].", '".md5("Bloompa-Twitter")."', NULL, NULL, 0, NULL, 1)";
+	$writeConnection->query($strsql);
+
+	$strsql = "INSERT INTO `salesrule` (`name`, `description`, `from_date`, `to_date`, `uses_per_customer`, `customer_group_ids`, `is_active`, `conditions_serialized`, `actions_serialized`, `stop_rules_processing`, `is_advanced`, `product_ids`, `sort_order`, `simple_action`, `discount_amount`, `discount_qty`, `discount_step`, `simple_free_shipping`, `apply_to_shipping`, `times_used`, `is_rss`, `website_ids`, `coupon_type`) VALUES ('Bloompa', 'Cupom de desconto fornecido pelo compartilhamento do site nas redes sociais.', '".date('Y-m-d')."', NULL, 0, '0,1,2,3,4', 1, 'a:6:{s:4:\"type\";s:32:\"salesrule/rule_condition_combine\";s:9:\"attribute\";N;s:8:\"operator\";N;s:5:\"value\";s:1:\"1\";s:18:\"is_value_processed\";N;s:10:\"aggregator\";s:3:\"all\";}', 'a:6:{s:4:\"type\";s:40:\"salesrule/rule_condition_product_combine\";s:9:\"attribute\";N;s:8:\"operator\";N;s:5:\"value\";s:1:\"1\";s:18:\"is_value_processed\";N;s:10:\"aggregator\";s:3:\"all\";}', 0, 1, '', 0, 'by_percent', '5', NULL, 0, 0, 0, 0, 1, '1', 2)";
+	$writeConnection->query($strsql);
+	$strsql = "SELECT * FROM `salesrule` WHERE `name`='Bloompa'";
+	$bloompa = $readConnection->fetchAll($strsql);
+	$strsql = "INSERT INTO `salesrule_coupon` (`rule_id`, `code`, `usage_limit`, `usage_per_customer`, `times_used`, `expiration_date`, `is_primary`) VALUES (".$bloompa[0]['rule_id'].", '34adac875ac8c8c2648abfbffb4e314d', NULL, NULL, 0, NULL, 1)";
+	$writeConnection->query($strsql);
+endif;
+//if(count($bloompa)>0):
+	if(!Mage::getSingleton('checkout/session')->getQuote()->getCouponCode()):
+		$strsql = "SELECT token FROM `bloompa` WHERE `id_token`=1 LIMIT 0,1";
+		$token = $readConnection->fetchAll($strsql);
+		$token = $token[0]['token'];
+		if($token!=''&&$token!='novo'):
+?>
+<script language="javascript" type="text/javascript">
+	var bcw_products = [
+
+	 // INÍCIO DO LOOP DE PRODUTOS	 
+	 <?php foreach( Mage::getSingleton('checkout/session')->getQuote()->getItemsCollection() as $item ) : ?>
+	 {	
+	   prod_page_url: '<?=Mage::getBaseUrl().($item->_data['product']->_data['url_path']);?>', // REQUIRED VARIABLE
+	   prod_img_url: '<?=Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).'catalog/product'.$item->_data['product']->_data['thumbnail'];?>', // REQUIRED VARIABLE
+	   prod_title: '<?=$item->_data['name'];?>', // REQUIRED VARIABLE 
+	   prod_price: '<?=$item->_data['price'];?>' // REQUIRED VARIABLE 	
+	 },
+	 <?php endforeach; ?>
+	];
+</script>
+
+<script language="javascript" type="text/javascript" src="https://www.bloompa.com.br/js/cart.widget-load.js" rel="sbloompa-cart-widget"></script>
+<script language="javascript" type="text/javascript">
+bcw.init(
+  {
+    token: "<?=$token;?>",
+    cart_url:"<?=Mage::getBaseUrl().'bloompcommerce';?>",
+    store_logo: '<?=$this->getSkinUrl('images/logotipo.png');?>',
+		products_in_cart: bcw_products,
+		cart_currency: 'BRL',
+		cart_amount: '<?php echo Mage::getSingleton('checkout/session')->getQuote()->getSubtotal(); ?>'
+  }
+);
+</script>
+	<?php endif;?>
+<?php else: ?>
+<script language="javascript" type="text/javascript"> 
+<?php foreach($bloompa as $token): ?>
+	//$token
+<?php endforeach; ?>
+	document.getElementsByTagName("body").item(0).innerHTML = document.getElementsByTagName("body").item(0).innerHTML.replace(/<?php echo md5("Bloompa-Facebook"); ?>/gi, "Bloompa");
+	document.getElementsByTagName("body").item(0).innerHTML = document.getElementsByTagName("body").item(0).innerHTML.replace(/<?php echo md5("Bloompa-Twitter"); ?>/gi, "Bloompa");
+	document.getElementsByTagName("body").item(0).innerHTML = document.getElementsByTagName("body").item(0).innerHTML.replace(/34adac875ac8c8c2648abfbffb4e314d/gi, "Bloompa");
+</script>
+<?php endif; 
+//endif;
+?>
