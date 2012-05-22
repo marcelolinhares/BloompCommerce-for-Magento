@@ -18,19 +18,30 @@ Acesse nosso site(<http://www.bloompa.com.br>) e saiba mais sobre nossas soluç�
 
 
 ## Sobre o módulo
-Este módulo foi forkeado do módulo enviado pelo time da própria Bloompa, porém ele precisou de algumas mudanças para funcionar, e ainda precisa de MUITAS mudanças para ficar adequado ao padrão da plataforma Magento.
+Este módulo foi forkeado do módulo enviado pelo time da própria Bloompa, porém ele precisou de algumas mudanças para funcionar, e ainda precisa de MUITAS mudanças  (ver TODO abaixo)  para ficar adequado ao padrão da plataforma Magento.
 
 
 ## Compatibilidade
 Está funcionando de forma estável em: [maisfloresbh.com.br](http://www.maisfloresbh.com.br), que utiliza a versão 1.6, não testei em outras versões.
 
 ## Instalando o módulo
-
+Em passos:
+Passo 1 - Copiar a pasta "app" para dentro do seu projeto
+Passo 2 - Executar "qualquer" página do Magento, validar se a tabela "bloompa" foi criada no BD
+Passo 3 - Persistir o seu token do Bloompa na tabela token: SQL (INSERT INTO `flores_b2c`.`bloompa` (`id_token`, `token`) VALUES ('2', 'SEU_TOKEN_AQUI');
+Passo 4 - Validar na tela do carrinho, se apareceu os botões de compartilhamento no facebook e no twitter
+Passo 5 - Verificar se o código do CUPOM foi criado no Magento (Promoções >  Promoção de Carrinho)
 
 ## Configurando
 
-
 ## Mudando o bloco de lugar
+
+Se quiser alterar a localização dos botões de compartilhamento, editar via estilo a div com id "bloompa-cart-widget"
+
+Caso deseje, pode colocar o bloco no "cart.phtml" do seu template, ao invés de deixar no "bloompa_cart.phtml"
+
+"<div id="bloompa-cart-widget" style="float: left; margin-right: 40px;" ></div>"
+
 
 ## Features não homologados
 
