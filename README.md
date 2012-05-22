@@ -27,9 +27,13 @@ Está funcionando de forma estável em: [maisfloresbh.com.br](http://www.maisflo
 ## Instalando o módulo
 Em passos:
 Passo 1 - Copiar a pasta "app" para dentro do seu projeto
+
 Passo 2 - Executar "qualquer" página do Magento, validar se a tabela "bloompa" foi criada no BD
+
 Passo 3 - Persistir o seu token do Bloompa na tabela token: SQL (INSERT INTO `flores_b2c`.`bloompa` (`id_token`, `token`) VALUES ('2', 'SEU_TOKEN_AQUI');
+
 Passo 4 - Validar na tela do carrinho, se apareceu os botões de compartilhamento no facebook e no twitter
+
 Passo 5 - Verificar se o código do CUPOM foi criado no Magento (Promoções >  Promoção de Carrinho)
 
 ## Configurando
