@@ -47,18 +47,18 @@ Se quiser alterar a localização dos botões de compartilhamento, editar via es
 
 Caso deseje, pode colocar o bloco no **cart.phtml** do seu template, ao invés de deixar no **bloompa_cart.phtml**
 
-==
-<div id="bloompa-cart-widget" style="float: left; margin-right: 40px;" ></div>
-==
+`
+<divv id="bloompa-cart-widget" style="float: left; margin-right: 40px;" ></divv>
+`
 
 Outra opção é alterar o posicionamento do bloco em:
-==
+`
         <reference name="content">
             <block type="page/html" name="bloompa" after="-" template="bloompa/bloompa_cart.phtml"/>
-        </reference>
-        
+        </reference>      
+`
+  
         Onde o campo reference pode ser: content/footer/header/right/left
-==
 
 ## Features não homologados
 
