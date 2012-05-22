@@ -68,3 +68,4 @@ Outra opção é alterar o posicionamento do bloco em:
 - personalizar o label do cupom dinamicamente
 - limpar o código que não está funcionando 
 - homologar a visualização do widget na página do produto
+- Colocar feature de validar conversão no código de finalização da compra
